@@ -15,10 +15,10 @@ public class UserDao {
     {
         users = new ArrayList<>();
 
-        users.add(new User(++PEOPLE_COUNT, "Tom", "Abrikosov"));
-        users.add(new User(++PEOPLE_COUNT, "Jerry", "Alaverdov"));
-        users.add(new User(++PEOPLE_COUNT, "Dug", "Donald"));
-        users.add(new User(++PEOPLE_COUNT, "Boris", "Britva"));
+        users.add(new User(++PEOPLE_COUNT, "Tom", "Abrikosov", 20, "mail@mail.ru"));
+        users.add(new User(++PEOPLE_COUNT, "Jerry", "Alaverdov",20, "mail2@mail.ru"));
+        users.add(new User(++PEOPLE_COUNT, "Dug", "Donald",20, "mail3@mail.ru"));
+        users.add(new User(++PEOPLE_COUNT, "Boris", "Britva",20, "mail4@mail.ru"));
     }
     public List<User> index() {
         return users;
@@ -37,6 +37,8 @@ public class UserDao {
         User userToBeUpdated= show(id);
         userToBeUpdated.setName(updateUser.getName());
         userToBeUpdated.setSurname(updateUser.getSurname());
+        userToBeUpdated.setAge(updateUser.getAge());
+        userToBeUpdated.setEmail(updateUser.getEmail());
     }
 
     public void delete(int id) {
