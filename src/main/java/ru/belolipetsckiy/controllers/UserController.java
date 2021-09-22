@@ -5,8 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.belolipetsckiy.dao.UserDao;
-import ru.belolipetsckiy.models.Person;
+import ru.belolipetsckiy.dao.UserDaoImpl;
 import ru.belolipetsckiy.models.User;
 
 import javax.validation.Valid;
@@ -15,10 +14,10 @@ import javax.validation.Valid;
 @RequestMapping("/user")
 public class UserController {
 
-    private final UserDao userDao;
+    private final UserDaoImpl userDao;
 
     @Autowired
-    public UserController(UserDao userDao) {
+    public UserController(UserDaoImpl userDao) {
         this.userDao = userDao;
     }
 
