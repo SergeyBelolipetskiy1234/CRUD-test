@@ -1,37 +1,34 @@
 package ru.belolipetsckiy.dao;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-import ru.belolipetsckiy.models.Person;
+import org.springframework.transaction.annotation.Transactional;
 import ru.belolipetsckiy.models.User;
 
-import java.util.ArrayList;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+
 import java.util.List;
 
 @Repository
+@Transactional
 public class UserDaoImpl implements UserDao{
-        private static int PEOPLE_COUNT;
-        private List<User> users;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-  {
-        users = new ArrayList<>();
-
-        users.add(new User(++PEOPLE_COUNT, "Tom", "Abrikosov", 20, "mail@mail.ru"));
-        users.add(new User(++PEOPLE_COUNT, "Jerry", "Alaverdov",20, "mail2@mail.ru"));
-        users.add(new User(++PEOPLE_COUNT, "Dug", "Donald",20, "mail3@mail.ru"));
-        users.add(new User(++PEOPLE_COUNT, "Boris", "Britva",20, "mail4@mail.ru"));
-    }
     public List<User> index() {
-        return users;
+        return entityManager.createQuery("select u from User u", User.class).getResultList();
     }
 
     public User show(int id) {
-        return users.stream().filter(user-> user.getId() == id).findAny().orElse(null);
+        TypedQuery<User> q = entityManager.createQuery("select u from User u where u.id = :id", User.class);
+        q.setParameter("id", id);
+        return q.getResultList().stream().findAny().orElse(null);
     }
 
     public void save(User user) {
-        user.setId(++PEOPLE_COUNT);
-        users.add(user);
+        entityManager.persist(user);
     }
 
     public void update(int id, User updateUser) {
@@ -43,6 +40,8 @@ public class UserDaoImpl implements UserDao{
     }
 
     public void delete(int id) {
-        users.removeIf(u -> u.getId() == id);
+        Query query = entityManager.createQuery("delete from User u where u.id = :id");
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 }

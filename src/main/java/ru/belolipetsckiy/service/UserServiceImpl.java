@@ -1,28 +1,23 @@
 package ru.belolipetsckiy.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.belolipetsckiy.dao.UserDao;
 import ru.belolipetsckiy.models.User;
 
-import java.util.ArrayList;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 @Service
+@Transactional
 public class UserServiceImpl implements UserService{
-    @Autowired
+
     private UserDao userDao;
 
-  /*  private static int PEOPLE_COUNT;
-    private List<User> users;
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
-    {
-        users = new ArrayList<>();
-
-        users.add(new User(++PEOPLE_COUNT, "Tom", "Abrikosov", 20, "mail@mail.ru"));
-        users.add(new User(++PEOPLE_COUNT, "Jerry", "Alaverdov",20, "mail2@mail.ru"));
-        users.add(new User(++PEOPLE_COUNT, "Dug", "Donald",20, "mail3@mail.ru"));
-        users.add(new User(++PEOPLE_COUNT, "Boris", "Britva",20, "mail4@mail.ru"));
-    } */
     public List<User> index() {
         return userDao.index();
     }
@@ -32,8 +27,6 @@ public class UserServiceImpl implements UserService{
     }
 
     public void save(User user) {
-      /*  user.setId(++PEOPLE_COUNT);
-        users.add(user); */
         userDao.save(user);
     }
 
