@@ -5,9 +5,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.belolipetsckiy.dao.UserDao;
 import ru.belolipetsckiy.models.User;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
+
 @Service
 @Transactional
 public class UserServiceImpl implements UserService{

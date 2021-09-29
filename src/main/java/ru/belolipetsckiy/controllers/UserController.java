@@ -30,7 +30,6 @@ public class UserController {
     public String show(@PathVariable("id") int id, Model model){
         model.addAttribute("user", userService.show(id));
         return "user/show";
-
     }
 
     @GetMapping("/new")
@@ -45,7 +44,6 @@ public class UserController {
 
         userService.save(user);
         return "redirect:/user";
-
     }
 
     @GetMapping("/{id}/edit")
@@ -67,6 +65,5 @@ public class UserController {
     public String delete(@PathVariable("id") int id) {
         userService.delete(id);
         return "redirect:/user";
-
     }
 }
