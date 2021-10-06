@@ -12,17 +12,16 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
-@Transactional
 public class UserDaoImpl implements UserDao{
     @PersistenceContext
     private EntityManager entityManager;
 
     public List<User> index() {
-        return entityManager.createQuery("select u from User u", User.class).getResultList();
+        return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
 
     public User show(int id) {
-        TypedQuery<User> q = entityManager.createQuery("select u from User u where u.id = :id", User.class);
+        TypedQuery<User> q = entityManager.createQuery("SELECT u FROM User u WHERE u.id = :id", User.class);
         q.setParameter("id", id);
         return q.getResultList().stream().findAny().orElse(null);
     }
@@ -40,7 +39,7 @@ public class UserDaoImpl implements UserDao{
     }
 
     public void delete(int id) {
-        Query query = entityManager.createQuery("delete from User u where u.id = :id");
+        Query query = entityManager.createQuery("DELETE FROM User u WHERE u.id = :id");
         query.setParameter("id", id);
         query.executeUpdate();
     }

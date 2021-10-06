@@ -39,11 +39,8 @@ public class UserController {
 
     @PostMapping
     public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
-        if(bindingResult.hasErrors())
-            return "user/new";
-
         userService.save(user);
-        return "redirect:/user";
+        return bindingResult.hasErrors()?"user/new": "redirect:/user";
     }
 
     @GetMapping("/{id}/edit")
@@ -58,7 +55,7 @@ public class UserController {
             return "user/edit";
 
         userService.update(id, user);
-        return "redirect:/user";
+        return bindingResult.hasErrors()?"user/edit": "redirect:/user";
     }
 
     @DeleteMapping("/{id}")
